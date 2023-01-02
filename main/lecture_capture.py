@@ -6,9 +6,8 @@ def click(x, y, button, pressed):
     if pressed:
         x = int(x)
         y = int(y)
-        xy.append(x)
-        xy.append(y)
-        if len(xy) == 4:
+        xy.append([x, y])
+        if len(xy) == 2:
             print(xy)
             return False
 
