@@ -1,6 +1,9 @@
 import pynput
+import pyautogui
 
 xy = []
+screenshot = pyautogui.screenshot()
+screenshot.save("C:/Users/kimgu/OneDrive/사진/Lecture_Capture/screenshot.jpg")
 
 def click(x, y, button, pressed):
     if pressed:
