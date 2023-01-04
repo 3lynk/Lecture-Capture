@@ -1,5 +1,16 @@
 import pynput
 import pyautogui
+import customtkinter
+import tkinter
+import tkinter.messagebox
+import time
+
+class App(customtkinter.CTk):
+    def __init__(self):
+        super().__init__()
+
+        self.title("Lecture_Caputure.py")
+        self.geometry(f"{500}x{250}")
 
 xy = []
 screenshot = pyautogui.screenshot()
@@ -16,3 +27,10 @@ def click(x, y, button, pressed):
 
 with pynput.mouse.Listener(on_click = click) as pynput.mouse.Listener:
     pynput.mouse.Listener.join()
+
+if __name__ == "__main__":
+    customtkinter.set_appearance_mode("System")
+    customtkinter.set_default_color_theme("blue")
+
+    app = App()
+    app.mainloop()
