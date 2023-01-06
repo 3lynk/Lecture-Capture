@@ -16,7 +16,7 @@ class App(customtkinter.CTk):
         # grid setting
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure((2, 3), weight=0)
-        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure((0, 1, 2, 3), weight=1)
         
         # sidebar frame
         self.sidebar_frame = customtkinter.CTkFrame(self, width=100, corner_radius=0)
@@ -26,12 +26,36 @@ class App(customtkinter.CTk):
         self.logo = customtkinter.CTkLabel(self.sidebar_frame, text="Lecture_Capture", font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo.grid(row=0, column=0, padx=20, pady=(20, 10))
 
-        # textbox
+        # explain textbox
         self.text_box = customtkinter.CTkTextbox(self.sidebar_frame)
         self.text_box.grid(row=1, column=0, padx=20, pady=20)
 
         self.text_box.insert("0.0", "How to use\n")
         self.text_box.configure(state="disabled")
+
+        # link text
+        self.save_adress = customtkinter.CTkEntry(self, placeholder_text="Save Adress")
+        self.save_adress.grid(row=0, column=1, padx=20, pady=10)
+
+        # name textbox
+        self.name_textbox = customtkinter.CTkEntry(self, placeholder_text="File Name")
+        self.name_textbox.grid(row=1, column=1, padx=20, pady=10)
+
+        # xy button
+        self.xy_button = customtkinter.CTkButton(self, text="XY setting")
+        self.xy_button.grid(row=2, column=1, padx=20, pady=10)
+
+        # start button
+        self.start_button = customtkinter.CTkButton(self, text="Start")
+        self.start_button.grid(row=0, column=2, padx=20, pady=10)
+
+        # capture button
+        self.capture_button = customtkinter.CTkButton(self, text="Capture")
+        self.capture_button.grid(row=1, column=2, padx=20, pady=10)
+
+        # end button
+        self.end_button = customtkinter.CTkButton(self, text="End")
+        self.end_button.grid(row=2, column=2, padx=20, pady=10)
 
 xy = []
 def capture():
