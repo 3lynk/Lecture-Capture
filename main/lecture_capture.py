@@ -4,10 +4,13 @@ import customtkinter
 import tkinter
 import tkinter.messagebox
 import time
+import os
 
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
+
+        self.adress = ""
 
         # init setting
         self.title("Lecture_Caputure.py")
@@ -33,29 +36,33 @@ class App(customtkinter.CTk):
         self.text_box.insert("0.0", "How to use\n")
         self.text_box.configure(state="disabled")
 
-        # link text
+        # adress textbox
         self.save_adress = customtkinter.CTkEntry(self, placeholder_text="Save Adress")
-        self.save_adress.grid(row=0, column=1, padx=20, pady=10)
+        self.save_adress.grid(row=0, column=1, columnspan=2, padx=20, pady=10, sticky="nsew")
 
         # name textbox
         self.name_textbox = customtkinter.CTkEntry(self, placeholder_text="File Name")
-        self.name_textbox.grid(row=1, column=1, padx=20, pady=10)
+        self.name_textbox.grid(row=1, column=1, columnspan=2, padx=20, pady=10, sticky="nsew")
 
         # xy button
         self.xy_button = customtkinter.CTkButton(self, text="XY setting", command=self.xy_setting)
         self.xy_button.grid(row=2, column=1, padx=20, pady=10)
 
         # start button
-        self.start_button = customtkinter.CTkButton(self, text="Start")
-        self.start_button.grid(row=0, column=2, padx=20, pady=10)
+        self.start_button = customtkinter.CTkButton(self, text="Start", command=self.start)
+        self.start_button.grid(row=2, column=2, padx=20, pady=10)
 
         # capture button
         self.capture_button = customtkinter.CTkButton(self, text="Capture")
-        self.capture_button.grid(row=1, column=2, padx=20, pady=10)
+        self.capture_button.grid(row=3, column=1, padx=20, pady=10)
 
         # end button
         self.end_button = customtkinter.CTkButton(self, text="End")
-        self.end_button.grid(row=2, column=2, padx=20, pady=10)
+        self.end_button.grid(row=3, column=2, padx=20, pady=10)
+    
+    def start(self):
+        self.adress = self.save_adress.get() + self.name_textbox.get()
+        print(self.adress)
 
     def capture(self):
         screenshot = pyautogui.screenshot()
@@ -82,3 +89,8 @@ if __name__ == "__main__":
 
     app = App()
     app.mainloop()
+
+'''
+C:/Users/kimgu/OneDrive/사진/
+Lecture_Capture
+'''
