@@ -42,7 +42,7 @@ class App(customtkinter.CTk):
         self.name_textbox.grid(row=1, column=1, padx=20, pady=10)
 
         # xy button
-        self.xy_button = customtkinter.CTkButton(self, text="XY setting")
+        self.xy_button = customtkinter.CTkButton(self, text="XY setting", command=self.xy_setting)
         self.xy_button.grid(row=2, column=1, padx=20, pady=10)
 
         # start button
@@ -57,24 +57,26 @@ class App(customtkinter.CTk):
         self.end_button = customtkinter.CTkButton(self, text="End")
         self.end_button.grid(row=2, column=2, padx=20, pady=10)
 
-xy = []
-def capture():
-    screenshot = pyautogui.screenshot()
-    screenshot.save("C:/Users/kimgu/OneDrive/사진/Lecture_Capture/screenshot.jpg")
+    def capture(self):
+        screenshot = pyautogui.screenshot()
+        screenshot.save("C:/Users/kimgu/OneDrive/사진/Lecture_Capture/screenshot.jpg")
 
-def click(x, y, button, pressed):
-    if pressed:
-        x = int(x)
-        y = int(y)
-        xy.append([x, y])
-        if len(xy) == 2:
-            print(xy)
-            return False
-
-'''with pynput.mouse.Listener(on_click = click) as pynput.mouse.Listener:
-    pynput.mouse.Listener.join()'''
+    def click(self, x, y, button, pressed):
+        if pressed:
+            x = int(x)
+            y = int(y)
+            xy.append([x, y])
+            if len(xy) == 2:
+                print(xy)
+                return False
+    
+    def xy_setting(self):
+        with pynput.mouse.Listener(on_click = self.click) as pynput.mouse.Listener:
+            pynput.mouse.Listener.join()
 
 if __name__ == "__main__":
+    xy = []
+
     customtkinter.set_appearance_mode("Dark")
     customtkinter.set_default_color_theme("blue")
 
