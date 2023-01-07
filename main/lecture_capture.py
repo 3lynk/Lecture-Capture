@@ -59,10 +59,21 @@ class App(customtkinter.CTk):
         # end button
         self.end_button = customtkinter.CTkButton(self, text="End")
         self.end_button.grid(row=3, column=2, padx=20, pady=10)
+
+    # Info Messagebox
+    def info_msgbox(self, text):
+        tkinter.messagebox.showinfo('Info', text)
+
+    # Warning Messagebox
+    def warning_msgbox(self, text):
+        tkinter.messagebox.showwarning('Warning', text)
     
     def start(self):
-        self.adress = self.save_adress.get() + self.name_textbox.get()
-        print(self.adress)
+        try:
+            self.adress = self.save_adress.get() + self.name_textbox.get()
+            os.mkdir(self.adress)
+        except FileExistsError:
+            self.warning_msgbox("이미 존재하는 폴더 이름입니다.\n경로를 수정하거나 이름을 수정해주세요.")
 
     def capture(self):
         screenshot = pyautogui.screenshot()
