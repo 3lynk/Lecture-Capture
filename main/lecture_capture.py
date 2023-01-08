@@ -11,6 +11,7 @@ class App(customtkinter.CTk):
         super().__init__()
 
         self.adress = ""
+        self.number = 1
 
         # init setting
         self.title("Lecture_Caputure.py")
@@ -53,7 +54,7 @@ class App(customtkinter.CTk):
         self.start_button.grid(row=2, column=2, padx=20, pady=10)
 
         # capture button
-        self.capture_button = customtkinter.CTkButton(self, text="Capture")
+        self.capture_button = customtkinter.CTkButton(self, text="Capture", command=self.capture)
         self.capture_button.grid(row=3, column=1, padx=20, pady=10)
 
         # end button
@@ -72,12 +73,15 @@ class App(customtkinter.CTk):
         try:
             self.adress = self.save_adress.get() + self.name_textbox.get()
             os.mkdir(self.adress)
+            self.number = 1
         except FileExistsError:
             self.warning_msgbox("이미 존재하는 폴더 이름입니다.\n경로를 수정하거나 이름을 수정해주세요.")
 
     def capture(self):
         screenshot = pyautogui.screenshot()
-        screenshot.save("C:/Users/kimgu/OneDrive/사진/Lecture_Capture/screenshot.jpg")
+        screenshot.save(self.adress + "/" + str(self.number) + ".jpg")
+        self.number += 1
+        #screenshot.save("C:/Users/kimgu/OneDrive/사진/Lecture_Capture/screenshot.jpg")
 
     def click(self, x, y, button, pressed):
         if pressed:
