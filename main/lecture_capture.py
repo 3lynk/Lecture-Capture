@@ -80,10 +80,9 @@ class App(customtkinter.CTk):
             self.warning_msgbox("이미 존재하는 폴더 이름입니다.\n경로를 수정하거나 이름을 수정해주세요.")
 
     def capture(self):
-        screenshot = pyautogui.screenshot()
+        screenshot = pyautogui.screenshot(region=(xy[0][0], xy[0][0], xy[1][0] - xy[0][0], xy[1][1] - xy[0][1]))
         screenshot.save(self.adress + "/" + str(self.number) + ".jpg")
         self.number += 1
-        #screenshot.save("C:/Users/kimgu/OneDrive/사진/Lecture_Capture/screenshot.jpg")
 
     def click(self, x, y, button, pressed):
         if pressed:
