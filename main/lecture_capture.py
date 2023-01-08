@@ -5,6 +5,7 @@ import tkinter
 import tkinter.messagebox
 import time
 import os
+import keyboard
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -12,6 +13,7 @@ class App(customtkinter.CTk):
 
         self.adress = ""
         self.number = 1
+        keyboard.add_hotkey("ctrl+c+a", self.capture)
 
         # init setting
         self.title("Lecture_Caputure.py")
