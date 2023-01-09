@@ -78,6 +78,8 @@ class App(customtkinter.CTk):
             self.adress = self.save_adress.get() + self.name_textbox.get()
             os.mkdir(self.adress)
             self.number = 1
+            
+            self.info_msgbox("Start")
         except FileExistsError:
             self.warning_msgbox("이미 존재하는 폴더 이름입니다.\n경로를 수정하거나 이름을 수정해주세요.")
     
@@ -89,9 +91,12 @@ class App(customtkinter.CTk):
             self.img = Image.open(self.adress + "\\" + str(i))
             self.img = self.img.convert("RGB")
             self.img_list.append(self.img)
+
         self.img = Image.open(self.adress + "\\" + str(self.file_list[0])).convert("RGB")
         del self.img_list[0]
         self.img.save(self.adress + "\\" + self.name_textbox.get() + ".pdf", save_all=True, append_images=self.img_list)
+
+        self.info_msgbox("Success")
 
     def capture(self):
         screenshot = pyautogui.screenshot(region=(xy[0][0], xy[0][0], xy[1][0] - xy[0][0], xy[1][1] - xy[0][1]))
@@ -110,6 +115,7 @@ class App(customtkinter.CTk):
     def xy_setting(self):
         with pynput.mouse.Listener(on_click = self.click) as pynput.mouse.Listener:
             pynput.mouse.Listener.join()
+        self.info_msgbox("Coordinate Setting Completed")
 
 if __name__ == "__main__":
     xy = []
@@ -119,8 +125,3 @@ if __name__ == "__main__":
 
     app = App()
     app.mainloop()
-
-'''
-C:/Users/kimgu/OneDrive/사진/
-Lecture_Capture
-'''
