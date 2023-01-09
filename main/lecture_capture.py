@@ -7,6 +7,7 @@ import time
 import os
 import keyboard
 from PIL import Image
+from tqdm import tqdm
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -84,10 +85,12 @@ class App(customtkinter.CTk):
         self.file_list = os.listdir(self.adress)
         self.img_list = []
 
-        for i in self.file_list:
+        for i in tqdm(self.file_list):
             self.img = Image.open(self.adress + "\\" + str(i))
             self.img = self.img.convert("RGB")
             self.img_list.append(self.img)
+        self.img = Image.open(self.adress + "\\" + str(self.file_list[0])).convert("RGB")
+        del self.img_list[0]
         self.img.save(self.adress + "\\" + self.name_textbox.get() + ".pdf", save_all=True, append_images=self.img_list)
 
     def capture(self):
