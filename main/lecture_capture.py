@@ -6,6 +6,7 @@ import tkinter.messagebox
 import time
 import os
 import keyboard
+from PIL import Image
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -60,7 +61,7 @@ class App(customtkinter.CTk):
         self.capture_button.grid(row=3, column=1, padx=20, pady=10)
 
         # end button
-        self.end_button = customtkinter.CTkButton(self, text="End")
+        self.end_button = customtkinter.CTkButton(self, text="End", command=self.end)
         self.end_button.grid(row=3, column=2, padx=20, pady=10)
 
     # Info Messagebox
@@ -78,6 +79,16 @@ class App(customtkinter.CTk):
             self.number = 1
         except FileExistsError:
             self.warning_msgbox("이미 존재하는 폴더 이름입니다.\n경로를 수정하거나 이름을 수정해주세요.")
+    
+    def end(self):
+        self.file_list = os.listdir(self.adress)
+        self.img_list = []
+
+        for i in self.file_list:
+            self.img = Image.open(self.adress + "\\" + str(i))
+            self.img = self.img.convert("RGB")
+            self.img_list.append(self.img)
+        self.img.save(self.adress + "\\" + self.name_textbox.get() + ".pdf", save_all=True, append_images=self.img_list)
 
     def capture(self):
         screenshot = pyautogui.screenshot(region=(xy[0][0], xy[0][0], xy[1][0] - xy[0][0], xy[1][1] - xy[0][1]))
