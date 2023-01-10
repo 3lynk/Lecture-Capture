@@ -1,4 +1,3 @@
-import pynput
 import pyautogui
 import customtkinter
 import tkinter
@@ -8,11 +7,13 @@ import os
 import keyboard
 from PIL import Image
 from tqdm import tqdm
+from pynput import mouse
 
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
-
+        
+        self.xy = []
         self.adress = ""
         self.number = 1
         keyboard.add_hotkey("ctrl+c+a", self.capture)
@@ -99,7 +100,7 @@ class App(customtkinter.CTk):
         self.info_msgbox("Success")
 
     def capture(self):
-        screenshot = pyautogui.screenshot(region=(xy[0][0], xy[0][0], xy[1][0] - xy[0][0], xy[1][1] - xy[0][1]))
+        screenshot = pyautogui.screenshot(region=(self.xy[0][0], self.xy[0][0], self.xy[1][0] - self.xy[0][0], self.xy[1][1] - self.xy[0][1]))
         screenshot.save(self.adress + "/" + str(self.number) + ".jpg")
         self.number += 1
 
@@ -107,19 +108,18 @@ class App(customtkinter.CTk):
         if pressed:
             x = int(x)
             y = int(y)
-            xy.append([x, y])
-            if len(xy) == 2:
-                print(xy)
+            self.xy.append([x, y])
+            if len(self.xy) == 2:
+                print(self.xy)
                 return False
     
     def xy_setting(self):
-        with pynput.mouse.Listener(on_click = self.click) as pynput.mouse.Listener:
-            pynput.mouse.Listener.join()
+        self.xy = []
+        with mouse.Listener(on_click = self.click) as listener:
+            listener.join()
         self.info_msgbox("Coordinate Setting Completed")
 
 if __name__ == "__main__":
-    xy = []
-
     customtkinter.set_appearance_mode("Dark")
     customtkinter.set_default_color_theme("blue")
 
