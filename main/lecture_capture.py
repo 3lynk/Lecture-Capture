@@ -98,6 +98,7 @@ class App(customtkinter.CTk):
         self.img.save(self.adress + "\\" + self.name_textbox.get() + ".pdf", save_all=True, append_images=self.img_list)
 
         self.info_msgbox("Success")
+        os.startfile(self.adress)
 
     def capture(self):
         screenshot = pyautogui.screenshot(region=(self.xy[0][0], self.xy[0][0], self.xy[1][0] - self.xy[0][0], self.xy[1][1] - self.xy[0][1]))
