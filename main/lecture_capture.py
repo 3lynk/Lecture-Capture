@@ -103,7 +103,10 @@ class App(customtkinter.CTk):
         os.startfile(self.adress)
 
     def capture(self):
-        screenshot = pyautogui.screenshot(region=(self.xy[0][0], self.xy[0][1], self.xy[1][0] - self.xy[0][0], self.xy[1][1] - self.xy[0][1]))
+        if self.xy == []:
+            screenshot = pyautogui.screenshot()
+        else:
+            screenshot = pyautogui.screenshot(region=(self.xy[0][0], self.xy[0][1], self.xy[1][0] - self.xy[0][0], self.xy[1][1] - self.xy[0][1]))
         screenshot.save(self.adress + "/" + str(self.number) + ".jpg")
         self.number += 1
 
