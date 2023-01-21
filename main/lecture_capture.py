@@ -2,6 +2,7 @@ import pyautogui
 import customtkinter
 import tkinter
 import tkinter.messagebox
+import tkinter.filedialog
 import time
 import os
 import keyboard
@@ -14,6 +15,7 @@ class App(customtkinter.CTk):
         super().__init__()
         
         self.xy = []
+        self.folder = ""
         self.adress = ""
         self.number = 1
         keyboard.add_hotkey("ctrl+c+a", self.capture)
@@ -43,13 +45,9 @@ class App(customtkinter.CTk):
         self.text_box.insert("0.0", self.explain)
         self.text_box.configure(state="disabled")
 
-        # adress textbox
-        self.save_adress = customtkinter.CTkEntry(self, placeholder_text="Save Adress                               ex) C:/folder1/folder2/")
-        self.save_adress.grid(row=0, column=1, columnspan=2, padx=20, pady=10, sticky="nsew")
-
         # name textbox
         self.name_textbox = customtkinter.CTkEntry(self, placeholder_text="File Name")
-        self.name_textbox.grid(row=1, column=1, columnspan=2, padx=20, pady=10, sticky="nsew")
+        self.name_textbox.grid(row=0, column=1, columnspan=2, padx=20, pady=10, sticky="nsew")
 
         # xy button
         self.xy_button = customtkinter.CTkButton(self, text="XY setting", command=self.xy_setting)
@@ -57,15 +55,19 @@ class App(customtkinter.CTk):
 
         # start button
         self.start_button = customtkinter.CTkButton(self, text="Start", command=self.start)
-        self.start_button.grid(row=2, column=2, padx=20, pady=10)
+        self.start_button.grid(row=1, column=1, padx=20, pady=10)
 
         # capture button
         self.capture_button = customtkinter.CTkButton(self, text="Capture", command=self.capture)
-        self.capture_button.grid(row=3, column=1, padx=20, pady=10)
+        self.capture_button.grid(row=3, column=1, columnspan=2, padx=20, pady=10, sticky="nsew")
 
         # end button
         self.end_button = customtkinter.CTkButton(self, text="End", command=self.end)
-        self.end_button.grid(row=3, column=2, padx=20, pady=10)
+        self.end_button.grid(row=1, column=2, padx=20, pady=10)
+
+        # select folder button
+        self.folder_button = customtkinter.CTkButton(self, text="Folder", command=self.select_folder)
+        self.folder_button.grid(row=2, column=2, padx=20, pady=10)
 
     # Info Messagebox
     def info_msgbox(self, text):
@@ -77,7 +79,7 @@ class App(customtkinter.CTk):
     
     def start(self):
         try:
-            self.adress = self.save_adress.get() + self.name_textbox.get()
+            self.adress = self.folder + self.name_textbox.get()
             os.mkdir(self.adress)
             self.number = 1
             
@@ -101,6 +103,10 @@ class App(customtkinter.CTk):
 
         self.info_msgbox("Success")
         os.startfile(self.adress)
+
+    def select_folder(self):
+        self.folder = tkinter.filedialog.askdirectory(initialdir="/") + "/"
+        print(self.folder)
 
     def capture(self):
         if self.xy == []:
