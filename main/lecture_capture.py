@@ -49,25 +49,25 @@ class App(customtkinter.CTk):
         self.name_textbox = customtkinter.CTkEntry(self, placeholder_text="File Name")
         self.name_textbox.grid(row=0, column=1, columnspan=2, padx=20, pady=10, sticky="nsew")
 
-        # xy button
-        self.xy_button = customtkinter.CTkButton(self, text="XY setting", command=self.xy_setting)
-        self.xy_button.grid(row=2, column=1, padx=20, pady=10)
-
         # start button
-        self.start_button = customtkinter.CTkButton(self, text="Start", command=self.start)
+        self.start_button = customtkinter.CTkButton(self, text="Start", command=self.start, state="disabled")
         self.start_button.grid(row=1, column=1, padx=20, pady=10)
 
-        # capture button
-        self.capture_button = customtkinter.CTkButton(self, text="Capture", command=self.capture)
-        self.capture_button.grid(row=3, column=1, columnspan=2, padx=20, pady=10, sticky="nsew")
-
         # end button
-        self.end_button = customtkinter.CTkButton(self, text="End", command=self.end)
+        self.end_button = customtkinter.CTkButton(self, text="End", command=self.end, state="disabled")
         self.end_button.grid(row=1, column=2, padx=20, pady=10)
+
+        # capture button
+        self.capture_button = customtkinter.CTkButton(self, text="Capture", command=self.capture, state="disabled")
+        self.capture_button.grid(row=3, column=1, columnspan=2, padx=20, pady=10, sticky="nsew")
 
         # select folder button
         self.folder_button = customtkinter.CTkButton(self, text="Folder", command=self.select_folder)
-        self.folder_button.grid(row=2, column=2, padx=20, pady=10)
+        self.folder_button.grid(row=2, column=1, padx=20, pady=10)
+
+        # xy button
+        self.xy_button = customtkinter.CTkButton(self, text="XY setting", command=self.xy_setting)
+        self.xy_button.grid(row=2, column=2, padx=20, pady=10)
 
     # Info Messagebox
     def info_msgbox(self, text):
@@ -82,6 +82,11 @@ class App(customtkinter.CTk):
             self.adress = self.folder + self.name_textbox.get()
             os.mkdir(self.adress)
             self.number = 1
+
+            # change button state
+            self.start_button.configure(state="disabled")
+            self.end_button.configure(state="normal")
+            self.capture_button.configure(state="normal")
             
             self.info_msgbox("Start")
         except FileExistsError:
@@ -106,7 +111,8 @@ class App(customtkinter.CTk):
 
     def select_folder(self):
         self.folder = tkinter.filedialog.askdirectory(initialdir="/") + "/"
-        print(self.folder)
+        if self.folder != "/":
+            self.start_button.configure(state="normal")
 
     def capture(self):
         if self.xy == []:
