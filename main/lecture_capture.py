@@ -50,23 +50,23 @@ class App(customtkinter.CTk):
         self.name_textbox.grid(row=0, column=1, columnspan=2, padx=20, pady=10, sticky="nsew")
 
         # start button
-        self.start_button = customtkinter.CTkButton(self, text="Start", command=self.start, state="disabled")
+        self.start_button = customtkinter.CTkButton(self, text="Start", command=self.start, fg_color="green", corner_radius=100, state="disabled")
         self.start_button.grid(row=1, column=1, padx=20, pady=10)
 
         # end button
-        self.end_button = customtkinter.CTkButton(self, text="End", command=self.end, state="disabled")
-        self.end_button.grid(row=1, column=2, padx=20, pady=10)
+        self.end_button = customtkinter.CTkButton(self, text="End", command=self.end, fg_color="green", corner_radius=100, state="disabled")
+        self.end_button.grid(row=2, column=1, padx=20, pady=10)
 
         # capture button
-        self.capture_button = customtkinter.CTkButton(self, text="Capture", command=self.capture, state="disabled")
+        self.capture_button = customtkinter.CTkButton(self, text="Capture", command=self.capture, fg_color="#990F02", state="disabled")
         self.capture_button.grid(row=3, column=1, columnspan=2, padx=20, pady=10, sticky="nsew")
 
         # select folder button
-        self.folder_button = customtkinter.CTkButton(self, text="Folder", command=self.select_folder)
-        self.folder_button.grid(row=2, column=1, padx=20, pady=10)
+        self.folder_button = customtkinter.CTkButton(self, text="Folder", command=self.select_folder, corner_radius=100, fg_color="#5AA1C2")
+        self.folder_button.grid(row=1, column=2, padx=20, pady=10)
 
         # xy button
-        self.xy_button = customtkinter.CTkButton(self, text="XY setting", command=self.xy_setting)
+        self.xy_button = customtkinter.CTkButton(self, text="XY setting", command=self.xy_setting, corner_radius=100, fg_color="#5AA1C2")
         self.xy_button.grid(row=2, column=2, padx=20, pady=10)
 
     # Info Messagebox
