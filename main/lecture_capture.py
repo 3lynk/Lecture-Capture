@@ -6,6 +6,7 @@ import tkinter.filedialog
 import time
 import os
 import keyboard
+import winsound
 from PIL import Image
 from tqdm import tqdm
 from pynput import mouse
@@ -121,6 +122,8 @@ class App(customtkinter.CTk):
             screenshot = pyautogui.screenshot(region=(self.xy[0][0], self.xy[0][1], self.xy[1][0] - self.xy[0][0], self.xy[1][1] - self.xy[0][1]))
         screenshot.save(self.adress + "/" + str(self.number) + ".jpg")
         self.number += 1
+        winsound.Beep(frequency=900, duration=150)
+        winsound.Beep(frequency=1200, duration=100)
 
     def click(self, x, y, button, pressed):
         if pressed:
