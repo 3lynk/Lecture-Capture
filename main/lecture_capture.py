@@ -91,6 +91,7 @@ class App(customtkinter.CTk):
 
             # change button state
             self.start_button.configure(state="disabled")
+            self.folder_button.configure(state="disabled")
             self.end_button.configure(state="normal")
             self.capture_button.configure(state="normal")
             
