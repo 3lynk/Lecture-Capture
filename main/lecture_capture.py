@@ -123,6 +123,7 @@ class App(customtkinter.CTk):
         del self.img_list[0]
         self.img.save(self.adress + "\\" + self.name_textbox.get() + ".pdf", save_all=True, append_images=self.img_list)
 
+        self.folder_button.configure(state="normal")
         self.end_button.configure(state="disabled")
         self.capture_button.configure(state="disabled")
         self.info_msgbox("Success")
