@@ -77,6 +77,11 @@ class App(customtkinter.CTk):
     # Warning Messagebox
     def warning_msgbox(self, text):
         tkinter.messagebox.showwarning('Warning', text)
+
+    # Confirm MessageBox
+    def confirm_msgbox(self):
+        YoN = tkinter.messagebox.askokcancel('Confirm', '캡쳐를 완료하고 PDF로 변환하시겠습니까?')
+        return YoN
     
     def start(self):
         try:
@@ -94,6 +99,12 @@ class App(customtkinter.CTk):
             self.warning_msgbox("이미 존재하는 폴더 이름입니다.\n경로를 수정하거나 이름을 수정해주세요.")
     
     def end(self):
+        YoN = self.confirm_msgbox()
+        print(YoN)
+        if YoN == False:
+            self.info_msgbox("Canceled.")
+            return
+
         self.file_list = os.listdir(self.adress)
         self.img_list = []
 
