@@ -149,7 +149,7 @@ class App(customtkinter.CTk):
         self.xy = []
         with mouse.Listener(on_click = self.click) as listener:
             listener.join()
-        self.info_msgbox("Coordinate Setting Completed")
+        self.info_msgbox("범위 설정이 완료되었습니다.")
 
 if __name__ == "__main__":
     customtkinter.set_appearance_mode("Dark")
