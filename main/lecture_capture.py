@@ -109,6 +109,10 @@ class App(customtkinter.CTk):
         self.file_list = os.listdir(self.adress)
         self.img_list = []
 
+        if self.file_list == []:
+            self.warning_msgbox("캡쳐된 이미지가 없습니다.")
+            return
+
         #for i in tqdm(self.file_list):
         for i in self.file_list:
             self.img = Image.open(self.adress + "\\" + str(i))
