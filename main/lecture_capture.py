@@ -7,6 +7,7 @@ import time
 import os
 import keyboard
 import winsound
+import setting_area
 from PIL import Image
 from tqdm import tqdm
 from pynput import mouse
@@ -67,7 +68,7 @@ class App(customtkinter.CTk):
         self.folder_button.grid(row=1, column=2, padx=20, pady=10)
 
         # xy button
-        self.xy_button = customtkinter.CTkButton(self, text="XY setting", command=self.xy_setting, corner_radius=100, fg_color="#5AA1C2")
+        self.xy_button = customtkinter.CTkButton(self, text="XY setting", command=self.xy_setting, corner_radius=100, fg_color="#5AA1C2", state="disabled")
         self.xy_button.grid(row=2, column=2, padx=20, pady=10)
 
     # Info Messagebox
@@ -87,6 +88,8 @@ class App(customtkinter.CTk):
         try:
             self.adress = self.folder + self.name_textbox.get()
             os.mkdir(self.adress)
+            os.mkdir(self.adress + "/img")
+            os.mkdir(self.adress + "/tmp")
             self.number = 1
 
             # change button state
@@ -94,6 +97,7 @@ class App(customtkinter.CTk):
             self.folder_button.configure(state="disabled")
             self.end_button.configure(state="normal")
             self.capture_button.configure(state="normal")
+            self.xy_button.configure(state="normal")
             
             self.info_msgbox("Start")
         except FileExistsError:
@@ -106,7 +110,7 @@ class App(customtkinter.CTk):
             self.info_msgbox("Canceled.")
             return
 
-        self.file_list = os.listdir(self.adress)
+        self.file_list = os.listdir(self.adress + "/img")
         self.img_list = []
 
         if self.file_list == []:
@@ -115,17 +119,18 @@ class App(customtkinter.CTk):
 
         #for i in tqdm(self.file_list):
         for i in self.file_list:
-            self.img = Image.open(self.adress + "\\" + str(i))
+            self.img = Image.open(self.adress + "/img" + "\\" + str(i))
             self.img = self.img.convert("RGB")
             self.img_list.append(self.img)
 
-        self.img = Image.open(self.adress + "\\" + str(self.file_list[0])).convert("RGB")
+        self.img = Image.open(self.adress + "/img" + "\\" + str(self.file_list[0])).convert("RGB")
         del self.img_list[0]
         self.img.save(self.adress + "\\" + self.name_textbox.get() + ".pdf", save_all=True, append_images=self.img_list)
 
         self.folder_button.configure(state="normal")
         self.end_button.configure(state="disabled")
         self.capture_button.configure(state="disabled")
+        self.xy_button.configure(state="disabled")
         self.info_msgbox("Success")
         os.startfile(self.adress)
 
@@ -139,7 +144,7 @@ class App(customtkinter.CTk):
             screenshot = pyautogui.screenshot()
         else:
             screenshot = pyautogui.screenshot(region=(self.xy[0][0], self.xy[0][1], self.xy[1][0] - self.xy[0][0], self.xy[1][1] - self.xy[0][1]))
-        screenshot.save(self.adress + "/" + str(self.number) + ".jpg")
+        screenshot.save(self.adress + "/img/" + str(self.number) + ".jpg")
         self.number += 1
         winsound.Beep(frequency=900, duration=150)
         winsound.Beep(frequency=1200, duration=100)
@@ -155,9 +160,16 @@ class App(customtkinter.CTk):
     
     def xy_setting(self):
         self.xy = []
-        with mouse.Listener(on_click = self.click) as listener:
-            listener.join()
+        '''with mouse.Listener(on_click = self.click) as listener:
+            listener.join()'''
+
+        all_screenshot = pyautogui.screenshot()
+        all_screenshot.save(self.adress + "/tmp/setting.jpg")
+
+        self.xy = setting_area.setting_area(self.adress + "/tmp/setting.jpg")
         self.info_msgbox("범위 설정이 완료되었습니다.")
+
+        print(self.xy)
 
 if __name__ == "__main__":
     customtkinter.set_appearance_mode("Dark")
