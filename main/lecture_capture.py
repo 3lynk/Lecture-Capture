@@ -1,3 +1,5 @@
+#-*-coding: utf-8-*-
+
 import pyautogui
 import customtkinter
 import tkinter
@@ -44,7 +46,7 @@ class App(customtkinter.CTk):
         self.text_box = customtkinter.CTkTextbox(self.sidebar_frame)
         self.text_box.grid(row=1, column=0, padx=20, pady=20)
 
-        self.explain = 'How to use \n\n 1. File Name 입력하기 \n\n 2. folder 버튼 누르고 저장할 폴더 선택하기 \n\n 3. Start 버튼 누르기\n\n 4. XY setting 버튼 누른후 캡쳐할 영역 드래그하기 \n (세팅을 안할시 기본값인 전체화면 캡쳐) \n (드래그하는 동안 아무것도 안보이는게 정상) \n\n 5. Capture버튼을 클릭하거나 단축키 "alt + c"로 캡쳐하기(단축키를 사용할 때에는 다른 단축키가 작동될 수 있기 때문에 작업 표시줄 클릭 후 사용하길 권장)\n\n 6. 캡쳐가 다 끝난 후 End 버튼을 눌러 완성하기'
+        self.explain = 'How to use \n\n 1. File Name 입력하기 \n\n 2. folder 버튼 누르고 저장할 폴더 선택하기 \n\n 3. Start 버튼 누르기\n\n 4. XY setting 버튼 누른후 캡쳐할 영역 드래그하기 \n (세팅을 안할시 기본값인 전체화면 캡쳐) \n (드래그하는 동안 아무것도 안보이는게 정상) \n\n 5. Capture버튼을 클릭하거나 단축키 "alt + c"로 캡쳐하기(단축키를 사용할 때에는 다른 단축키가 작동될 수 있기 때문에 작업 표시줄 클릭 후 사용하길 권장) \n\n 6. 캡쳐가 다 끝난 후 End 버튼을 눌러 완성하기'
         self.text_box.insert("0.0", self.explain)
         self.text_box.configure(state="disabled")
 
@@ -102,7 +104,7 @@ class App(customtkinter.CTk):
             
             self.info_msgbox("Start")
         except FileExistsError:
-            self.warning_msgbox("이미 존재하는 폴더 이름입니다.\n경로를 수정하거나 이름을 수정해주세요.")
+            self.warning_msgbox("이미 존재하는 파일 이름입니다.\n경로를 수정하거나 이름을 수정해주세요.")
     
     def end(self):
         YoN = self.confirm_msgbox()
@@ -145,10 +147,14 @@ class App(customtkinter.CTk):
             screenshot = pyautogui.screenshot()
         else:
             screenshot = pyautogui.screenshot(region=(self.xy[0][0], self.xy[0][1], self.xy[1][0] - self.xy[0][0], self.xy[1][1] - self.xy[0][1]))
-        screenshot.save(self.adress + "/img/" + str(self.number) + ".jpg")
-        self.number += 1
-        winsound.Beep(frequency=900, duration=150)
-        winsound.Beep(frequency=1200, duration=100)
+        
+        try:
+            screenshot.save(self.adress + "/img/" + str(self.number) + ".jpg")
+            self.number += 1
+            winsound.Beep(frequency=900, duration=150)
+            winsound.Beep(frequency=1200, duration=100)
+        except:
+            print("Error : start 안하고 단축키 사용")
     
     def xy_setting(self):
         self.xy = []
