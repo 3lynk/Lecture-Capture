@@ -43,7 +43,7 @@ class App(customtkinter.CTk):
         self.text_box = customtkinter.CTkTextbox(self.sidebar_frame)
         self.text_box.grid(row=1, column=0, padx=20, pady=20)
 
-        self.explain = 'How to use \n\n 1. File Name 입력하기 \n\n 2. folder 버튼 누르고 저장할 폴더 선택하기 \n\n 3. Start 버튼 누르기\n\n 4. XY setting 버튼 누른후 캡쳐할 영역의 왼쪽 상단 모서리와 오른쪽 하단 모서리 위치 클릭하기 \n (세팅을 안할시 기본값인 전체화면 캡쳐) \n (XY setting 버튼 누른 직후 두 번의 클릭으로 설정)\n\n 5. Capture버튼을 클릭하거나 단축키 "ctrl + c + a"로 캡쳐하기(단축키를 사용할 때에는 다른 단축키가 작동될 수 있기 때문에 작업 표시줄 클릭 후 사용하길 권장)\n\n 6. 캡쳐가 다 끝난 후 End 버튼을 눌러 완성하기'
+        self.explain = 'How to use \n\n 1. File Name 입력하기 \n\n 2. folder 버튼 누르고 저장할 폴더 선택하기 \n\n 3. Start 버튼 누르기\n\n 4. XY setting 버튼 누른후 캡쳐할 영역 드래그하기 \n (세팅을 안할시 기본값인 전체화면 캡쳐) \n (드래그하는 동안 아무것도 안보이는게 정상) \n\n 5. Capture버튼을 클릭하거나 단축키 "ctrl + c + a"로 캡쳐하기(단축키를 사용할 때에는 다른 단축키가 작동될 수 있기 때문에 작업 표시줄 클릭 후 사용하길 권장)\n\n 6. 캡쳐가 다 끝난 후 End 버튼을 눌러 완성하기'
         self.text_box.insert("0.0", self.explain)
         self.text_box.configure(state="disabled")
 
@@ -148,20 +148,9 @@ class App(customtkinter.CTk):
         self.number += 1
         winsound.Beep(frequency=900, duration=150)
         winsound.Beep(frequency=1200, duration=100)
-
-    def click(self, x, y, button, pressed):
-        if pressed:
-            x = int(x)
-            y = int(y)
-            self.xy.append([x, y])
-            if len(self.xy) == 2:
-                print(self.xy)
-                return False
     
     def xy_setting(self):
         self.xy = []
-        '''with mouse.Listener(on_click = self.click) as listener:
-            listener.join()'''
 
         all_screenshot = pyautogui.screenshot()
         all_screenshot.save(self.adress + "/tmp/setting.jpg")
