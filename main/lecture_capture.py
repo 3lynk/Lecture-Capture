@@ -156,6 +156,11 @@ class App(customtkinter.CTk):
         all_screenshot.save(self.adress + "/tmp/setting.jpg")
 
         self.xy = setting_area.setting_area(self.adress + "/tmp/setting.jpg")
+        if self.xy[0][0] > self.xy[1][0]:
+            self.xy[0][0], self.xy[1][0] = self.xy[1][0], self.xy[0][0]
+        if self.xy[0][1] > self.xy[1][1]:
+            self.xy[0][1], self.xy[1][1] = self.xy[1][1], self.xy[0][1]
+
         self.info_msgbox("범위 설정이 완료되었습니다.")
 
         print(self.xy)
