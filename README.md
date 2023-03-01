@@ -12,8 +12,9 @@ https://user-images.githubusercontent.com/44095919/222128634-d29e2290-80d4-4557-
 
 ## 기능
 - [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter)을 이용한 GUI
-- Tkinter을 이용하여 파일경로를 파일 다이얼로그로 설정
-- OpenCV를 이용하여 캡쳐범위 설정시 불필요한 클릭 방지 및 캡쳐범위 시각화
+- OpenCV를 이용하여 원하는 영역의 캡쳐범위 설정
+- 버튼 혹은 단축키를 사용하여 동영상 강의 캡쳐
+- 캡쳐된 강의자료를 자동으로 PDF로 변환
 
 ## 사용방법
 ![screenshot1](https://user-images.githubusercontent.com/44095919/222131315-2edfa802-730b-4e1d-9c6e-dbb6d55e4c86.png)
