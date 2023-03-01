@@ -15,6 +15,7 @@ https://user-images.githubusercontent.com/44095919/222128634-d29e2290-80d4-4557-
 - OpenCV를 이용하여 캡쳐범위 설정시 불필요한 클릭 방지 및 캡쳐범위 시각화
 
 ## 사용방법
+![screenshot1](https://user-images.githubusercontent.com/44095919/222131315-2edfa802-730b-4e1d-9c6e-dbb6d55e4c86.png)
 1. File Name 칸에 파일이름 입력하기
 2. Folder 버튼을 클릭하여 파일을 저장할 폴더 지정하기
 3. Start 버튼을 클릭하여 시작하기
