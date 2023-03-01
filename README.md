@@ -5,7 +5,7 @@ Lecture-Capture은 동영상 강의를 시청하는 중에 강의내용을 캡�
 https://user-images.githubusercontent.com/44095919/222128634-d29e2290-80d4-4557-adf1-f19573f22a01.mp4
 
 ## 설치방법
-1. Releases에서 최신 버전 클릭
+1. [Releases](https://github.com/geonbly327/Lecture-Capture/releases)에서 최신 버전 클릭
 2. 버전.zip 파일 다운로드 후 압축 해제
 3. exe -> dist -> lecture_capture 응용 프로그램 실행
 
