@@ -10,6 +10,9 @@ https://user-images.githubusercontent.com/44095919/222128634-d29e2290-80d4-4557-
 2. 버전.zip 파일 다운로드 후 압축 해제
 3. exe -> dist -> lecture_capture 응용 프로그램 실행
 
+> **Note**
+> Window만 지원합니다.
+
 ## 기능
 - [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter)을 이용한 GUI
 - OpenCV를 이용하여 원하는 영역의 캡쳐범위 설정
