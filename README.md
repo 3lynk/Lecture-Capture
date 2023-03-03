@@ -11,7 +11,7 @@ https://user-images.githubusercontent.com/44095919/222128634-d29e2290-80d4-4557-
 3. exe -> dist -> lecture_capture 응용 프로그램 실행
 
 > **Note**
-> Window만 지원합니다.
+> Windows만 지원합니다.
 
 ## 기능
 - [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter)을 이용한 GUI
