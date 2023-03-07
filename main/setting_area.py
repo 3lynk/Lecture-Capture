@@ -29,13 +29,11 @@ def draw_rectangle(event, x, y, flags, param):
 
         roop = False
 
-def setting_area(path):
+def setting_area(path, screen_id):
     global tmp, roop, img, x1, y1, x2, y2
 
     roop = True
     tmp = True
-
-    screen_id = 1
     is_color = False
 
     screen = screeninfo.get_monitors()[screen_id]

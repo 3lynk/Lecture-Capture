@@ -10,6 +10,7 @@ import os
 import keyboard
 import winsound
 import setting_area
+import screeninfo
 from PIL import Image
 from tqdm import tqdm
 from pynput import mouse
@@ -22,6 +23,15 @@ class App(customtkinter.CTk):
         self.folder = ""
         self.adress = ""
         self.number = 1
+        self.screen_id = 0
+
+        self.monitors = screeninfo.get_monitors()
+        self.monitor_options = []
+        for m in range(len(self.monitors)):
+            if self.monitors[m].is_primary == True:
+                self.monitor_options.append(f"Display{m + 1}(Main)")
+            else:
+                self.monitor_options.append(f"Display{m + 1}")
 
         keyboard.add_hotkey("alt+c", self.capture)
 
@@ -40,15 +50,19 @@ class App(customtkinter.CTk):
 
         # logo
         self.logo = customtkinter.CTkLabel(self.sidebar_frame, text="Lecture_Capture", font=customtkinter.CTkFont(size=20, weight="bold"))
-        self.logo.grid(row=0, column=0, padx=20, pady=(20, 10))
+        self.logo.grid(row=0, column=0, padx=20, pady=20)
 
         # explain textbox
-        self.text_box = customtkinter.CTkTextbox(self.sidebar_frame)
-        self.text_box.grid(row=1, column=0, padx=20, pady=20)
+        self.text_box = customtkinter.CTkTextbox(self.sidebar_frame, height=165)
+        self.text_box.grid(row=1, column=0, padx=20, pady=0)
 
         self.explain = 'How to use \n\n 1. File Name 입력하기 \n\n 2. folder 버튼 누르고 저장할 폴더 선택하기 \n\n 3. Start 버튼 누르기\n\n 4. XY setting 버튼 누른후 캡쳐할 영역 드래그하기 \n (세팅을 안할시 기본값인 전체화면 캡쳐) \n (드래그하는 동안 아무것도 안보이는게 정상) \n\n 5. Capture버튼을 클릭하거나 단축키 "alt + c"로 캡쳐하기(단축키를 사용할 때에는 다른 단축키가 작동될 수 있기 때문에 작업 표시줄 클릭 후 사용하길 권장) \n\n 6. 캡쳐가 다 끝난 후 End 버튼을 눌러 완성하기'
         self.text_box.insert("0.0", self.explain)
         self.text_box.configure(state="disabled")
+
+        # monitor option
+        self.monitor_option = customtkinter.CTkOptionMenu(self.sidebar_frame, width=200, values=self.monitor_options, command=self.monitor_select)
+        self.monitor_option.grid(row=2, column=0, padx=20, pady=20)
 
         # name textbox
         self.name_textbox = customtkinter.CTkEntry(self, placeholder_text="File Name")
@@ -73,6 +87,9 @@ class App(customtkinter.CTk):
         # xy button
         self.xy_button = customtkinter.CTkButton(self, text="XY setting", command=self.xy_setting, corner_radius=100, fg_color="#5AA1C2", state="disabled")
         self.xy_button.grid(row=2, column=2, padx=20, pady=10)
+
+    def monitor_select(self, option):
+        self.screen_id = self.monitor_options.index(option)
 
     # Info Messagebox
     def info_msgbox(self, text):
@@ -162,7 +179,7 @@ class App(customtkinter.CTk):
         all_screenshot = pyautogui.screenshot()
         all_screenshot.save(self.adress + "/tmp/setting.jpg")
 
-        self.xy = setting_area.setting_area(self.adress + "/tmp/setting.jpg")
+        self.xy = setting_area.setting_area(self.adress + "/tmp/setting.jpg", self.screen_id)
         if self.xy[0][0] > self.xy[1][0]:
             self.xy[0][0], self.xy[1][0] = self.xy[1][0], self.xy[0][0]
         if self.xy[0][1] > self.xy[1][1]:
