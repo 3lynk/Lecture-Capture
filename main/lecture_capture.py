@@ -1,6 +1,5 @@
 #-*-coding: utf-8-*-
 
-import pyautogui
 import customtkinter
 import tkinter
 import tkinter.messagebox
@@ -11,6 +10,7 @@ import keyboard
 import winsound
 import setting_area
 import screeninfo
+import mss
 from PIL import Image
 from tqdm import tqdm
 from pynput import mouse
@@ -160,13 +160,19 @@ class App(customtkinter.CTk):
             self.start_button.configure(state="normal")
 
     def capture(self):
-        if self.xy == []:
-            screenshot = pyautogui.screenshot()
-        else:
-            screenshot = pyautogui.screenshot(region=(self.xy[0][0], self.xy[0][1], self.xy[1][0] - self.xy[0][0], self.xy[1][1] - self.xy[0][1]))
+        with mss.mss() as sct:
+                mon = sct.monitors[self.screen_id + 1]
+
+                if self.xy ==[]:
+                    monitor = {"top": mon["top"], "left": mon["left"], "width": mon["width"], "height": mon["height"]}
+                else:
+                    monitor = {"top": self.monitors[self.screen_id].y + self.xy[0][1], "left": self.monitors[self.screen_id].x + self.xy[0][0], "width": self.xy[1][0] - self.xy[0][0], "height": self.xy[1][1] - self.xy[0][1]}
+
+                img = sct.grab(monitor)
         
         try:
-            screenshot.save(self.adress + "/img/" + str(self.number) + ".jpg")
+            output = f"{self.adress}/img/{str(self.number)}.jpg".format(**monitor)
+            mss.tools.to_png(img.rgb, img.size, output=output)
             self.number += 1
             winsound.Beep(frequency=900, duration=150)
             winsound.Beep(frequency=1200, duration=100)
@@ -176,8 +182,17 @@ class App(customtkinter.CTk):
     def xy_setting(self):
         self.xy = []
 
-        all_screenshot = pyautogui.screenshot()
-        all_screenshot.save(self.adress + "/tmp/setting.jpg")
+        with mss.mss() as sct:
+                mon = sct.monitors[self.screen_id + 1]
+
+                if self.xy ==[]:
+                    monitor = {"top": mon["top"], "left": mon["left"], "width": mon["width"], "height": mon["height"]}
+                else:
+                    monitor = {"top": self.xy[0][1], "left": self.xy[0][0], "width": self.xy[1][0] - self.xy[0][0], "height": self.xy[1][1] - self.xy[0][1]}
+
+                img = sct.grab(monitor)
+                output = f"{self.adress}/tmp/setting.jpg".format(**monitor)
+                mss.tools.to_png(img.rgb, img.size, output=output)
 
         self.xy = setting_area.setting_area(self.adress + "/tmp/setting.jpg", self.screen_id)
         if self.xy[0][0] > self.xy[1][0]:
