@@ -1,4 +1,9 @@
+<!--<div align="center"><img src="https://user-images.githubusercontent.com/44095919/223808743-54e2778d-0fcd-4a63-89dd-84af900a9163.png" width=15%></div>-->
+
 # Lecture-Capture
+
+<img src="https://user-images.githubusercontent.com/44095919/223808743-54e2778d-0fcd-4a63-89dd-84af900a9163.png" width=15%>
+
 Lecture-Capture은 동영상 강의를 시청하는 중에 강의내용을 캡쳐하여 PDF로 변환해주는 프로그램입니다.  
 >개발자 본인이 동영상 강의로 진행되나 PDF와 같은 다른 수업자료가 없던 수업을 수강하면서 일일이 수업내용을 옮겨적거나 동영상 화면을 캡쳐하는 것에 불편함을 느끼고 제작하게 되었습니다.
 
