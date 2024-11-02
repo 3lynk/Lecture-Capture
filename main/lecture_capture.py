@@ -139,8 +139,8 @@ class App(customtkinter.CTk):
             return
 
         #for i in tqdm(self.file_list):
-        for i in self.file_list:
-            self.img = Image.open(self.adress + "/img" + "\\" + str(i))
+        for i in range(1, len(self.file_list) + 1):
+            self.img = Image.open(self.adress + "/img" + "\\" + str(i) + ".jpg")
             self.img = self.img.convert("RGB")
             self.img_list.append(self.img)
 
